@@ -1,0 +1,40 @@
+{
+  "name": "create-cgcg666_cli",
+  "version": "1.0.8",
+  "description": "",
+  "main": "outfile.cjs",
+  "type": "module",
+  "files": [
+    "outfile.cjs"
+  ],
+  "bin": {
+    "create-cgcg666_cli": "outfile.cjs"
+  },
+  "scripts": {
+    "build": "zx ./build.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "homepage": "https://github.com/cg66666/create-cgcg666_cli",
+  "bugs": {
+    "url": "https://github.com/cg66666/create-cgcg666_cli/issues"
+  },
+  "author": "cg <915373240@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cg66666/create-cgcg666_cli.git"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^12.0.0",
+    "jszip": "^3.10.1",
+    "ora": "^8.1.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "zx": "^8.1.9"
+  }
+}
