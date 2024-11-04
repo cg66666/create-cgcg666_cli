@@ -83,7 +83,6 @@ async function init() {
       if (fs.existsSync(targetPaath)) {
         spinner.fail(`新建失败！${name}文件夹已经存在！`);
       } else {
-        console.log("answers", answers);
         // 发起下载请求
         const response = await axios({
           url: "http://110.40.134.47:8080/package/download",
@@ -94,17 +93,22 @@ async function init() {
         // 将 ArrayBuffer 数据转换为 Buffer
         const buffer = Buffer.from(response.data);
         const file = await JSZip.loadAsync(buffer);
-        Object.keys(file.files).forEach((relativePath, files) => {
+        for (let relativePath of Object.keys(file.files)) {
           const file2 = file.files[relativePath];
           if (file2 && !file2.dir) {
             // 忽略目录
             const filePath = path.join(targetPaath, relativePath);
-            return file2.async("nodebuffer").then((buffer) => {
-              ensureFileSync(filePath); // 确保文件路径存在
-              fs.writeFileSync(filePath, buffer); // 保存文件
-            });
+            const buffer2 = await file2.async("nodebuffer");
+            ensureFileSync(filePath); // 确保文件路径存在
+            fs.writeFileSync(filePath, buffer2); // 保存文件
           }
-        });
+        }
+        // 修改文件名
+        const packagePath = path.join(targetPaath, "package.json");
+        const data = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+        data.name = answers.name;
+        const modifiedData = JSON.stringify(data, null, 2);
+        fs.writeFileSync(packagePath, modifiedData, "utf8");
         spinner.succeed(`模板拉取成功`);
       }
     }
