@@ -85,7 +85,7 @@ async function init() {
       } else {
         // 发起下载请求
         const response = await axios({
-          url: "http://110.40.134.47:8080/package/download",
+          url: "http://119.91.95.77:8888/package/download",
           data: { ...answers },
           method: "POST",
           responseType: "arraybuffer",
